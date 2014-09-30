@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TV Countdown</string>
+	<string name="show_for_search">Escribe el nombre de la serie que desees.</string>
+	<string name="search_button">Buscar</string>
+	<string name="write_here">Escribe aquí</string>
+	<string name="button_en">Buscar</string>
+	<string name="result_en">Nombre del episodio: </string>
+	<string name="description_en">Banner de la serie.</string>
+	<string name="date_next">El proximo episodio se emite el </string>
+	<string name="no_episodes">No hay nuevos episodios</string>
+	<string name="about">Informacion</string>
+	 <string name="wait">Espere, la aplicación esta descargando la información de la serie.</string>
+	<string name="about_app">Esta aplicación ha sido desarrollada con el único propósito de facilitar la búsqueda de la fecha del proximo episodio de tus series favoritas.</string>
+    <string name="about_help">Si tienes algún problema con la aplicación por favor envieme un correo a adrianmarinportillo@gmail.com </string>
+	<string name="no_exists">Esa serie no aparece en nuestra guía de televisión, intentelo de nuevo.</string>
+	<string name="tba">Titulo pendiente de confirmación.</string>
+	<string name="title_reminder">Alarma para </string>
+	<string name="setCalendar">¿Quieres crear una alarma?</string>
+	<string name="yes">Si</string>
+	<string name="no">No</string>
+</resources>

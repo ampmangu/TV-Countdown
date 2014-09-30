@@ -1,0 +1,22 @@
+<resources>
+
+    <string name="app_name">TV Countdown</string>
+    <string name="show_for_search">Write the name of the show you are searching</string>
+    <string name="search_button">Search</string>
+    <string name="write_here">Write here</string>
+    <string name="button_en">Search</string>
+    <string name="result_en">Name of the episode: </string>
+    <string name="description_en">Banner of the show.</string>
+    <string name="date_next">The date of the next episode is </string>
+    <string name="no_episodes">There is no new episodes</string>
+    <string name="about">About</string>
+    <string name="wait">Wait, the app is downloading the information of the show.</string>
+    <string name="about_app">This app has been developed for the purpose of making easier the search of the date of the new episodes of your favorites shows.</string>
+    <string name="about_help">If you have any troubles with the app please contact me at adrianmarinportillo@gmail.com </string>
+	<string name="no_exists">That show does not exist in the TV guide, try again.</string>
+	<string name="tba">TBA.</string>
+	<string name="title_reminder">Reminder of </string>
+	<string name="setCalendar">Do you want to create a reminder?</string>
+	<string name="yes">Yes</string>
+	<string name="no">No</string>
+</resources>
