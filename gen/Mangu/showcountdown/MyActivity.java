@@ -16,6 +16,7 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -44,6 +45,7 @@ public class MyActivity extends Activity {
 	private Button search_sender;
 	private TextView text_result;
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -55,7 +57,6 @@ public class MyActivity extends Activity {
 		this.text_result = ((TextView) findViewById(R.id.text_result));
 		this.input_text = ((EditText) findViewById(R.id.input_text));
 		this.about = ((Button) findViewById(R.id.about_button));
-
 		this.search_sender.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -70,9 +71,11 @@ public class MyActivity extends Activity {
 							"-");
 					show_to_search = changeShow(show_to_search);
 					String str2 = show_init + show_to_search;
-					
-					Toast.makeText(getApplicationContext(),
-							getText(R.string.wait), Toast.LENGTH_LONG);
+
+					/*
+					 * Toast.makeText(getApplicationContext(),
+					 * getText(R.string.wait), Toast.LENGTH_LONG);
+					 */
 					String season_number = String.valueOf(new JSONObject(
 							(makeJSON(localBackgroundDownload
 									.doInBackground(str2)))).get("season"));
@@ -240,9 +243,10 @@ public class MyActivity extends Activity {
 		return ((HttpURLConnection) new URL(paramString).openConnection())
 				.getInputStream();
 	}
+
 	/**
-	 * @author Adrian Marin
-	 * This method is bullshit but is the only thing I can do, I can't use the switch statement with a String
+	 * @author Adrian Marin This method is bullshit but is the only thing I can
+	 *         do, I can't use the switch statement with a String
 	 * @param paramString
 	 * @return str
 	 */
