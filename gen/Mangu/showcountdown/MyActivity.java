@@ -66,9 +66,10 @@ public class MyActivity extends Activity {
 									.permitAll().build());
 					BackgroundDownload localBackgroundDownload = new BackgroundDownload();
 					String show_to_search = input_text.getText().toString();
+					show_to_search = changeShow(show_to_search);
 					show_to_search = show_to_search.toLowerCase().replace(" ",
 							"-");
-					show_to_search = changeShow(show_to_search);
+					
 					String str2 = show_init + show_to_search;
 
 					Toast.makeText(getApplicationContext(),
@@ -83,6 +84,7 @@ public class MyActivity extends Activity {
 									.doInBackground(str5))));
 					String episode_number = String.valueOf(localJSONObject
 							.get("episode"));
+					
 					String episode_title = String.valueOf(localJSONObject
 							.getString("title"));
 					String iso_date = String.valueOf(localJSONObject
