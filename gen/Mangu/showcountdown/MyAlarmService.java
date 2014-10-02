@@ -22,7 +22,7 @@ public class MyAlarmService extends Service {
 	      
 	       mManager = (NotificationManager) this.getApplicationContext().getSystemService(this.getApplicationContext().NOTIFICATION_SERVICE);
 	       Intent intent1 = new Intent(this.getApplicationContext(),MyActivity.class);
-	     
+	       
 	       Notification notification = new Notification(R.drawable.ic_launcher,"Alarma añadida", System.currentTimeMillis());
 	       intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP| Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	 

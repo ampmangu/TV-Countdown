@@ -23,6 +23,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.CalendarContract.Events;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -70,7 +71,7 @@ public class MyActivity extends Activity {
 							"-");
 					show_to_search = changeShow(show_to_search);
 					String str2 = show_init + show_to_search;
-					
+
 					Toast.makeText(getApplicationContext(),
 							getText(R.string.wait), Toast.LENGTH_LONG);
 					String season_number = String.valueOf(new JSONObject(
@@ -111,8 +112,8 @@ public class MyActivity extends Activity {
 						banner_show.setVisibility(View.VISIBLE);
 						new AlertDialog.Builder(MyActivity.this)
 								.setTitle(
-										getText(R.string.title_reminder)
-												+ " " + episode_title)
+										getText(R.string.title_reminder) + " "
+												+ episode_title)
 								.setMessage(R.string.setCalendar)
 								.setPositiveButton(R.string.yes,
 										new DialogInterface.OnClickListener() {
@@ -137,7 +138,6 @@ public class MyActivity extends Activity {
 														15);
 												calendar.set(Calendar.MINUTE, 0);
 												calendar.set(Calendar.SECOND, 0);
-
 												AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 												Intent myIntent = new Intent(
 														MyActivity.this,
@@ -240,9 +240,10 @@ public class MyActivity extends Activity {
 		return ((HttpURLConnection) new URL(paramString).openConnection())
 				.getInputStream();
 	}
+
 	/**
-	 * @author Adrian Marin
-	 * This method is bullshit but is the only thing I can do, I can't use the switch statement with a String
+	 * @author Adrian Marin This method is bullshit but is the only thing I can
+	 *         do, I can't use the switch statement with a String
 	 * @param paramString
 	 * @return str
 	 */
