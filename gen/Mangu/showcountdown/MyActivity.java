@@ -145,7 +145,8 @@ public class MyActivity extends Activity {
 												PendingIntent pendingIntent = PendingIntent
 														.getBroadcast(
 																MyActivity.this,
-																0, myIntent, 0);
+																0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+												
 												alarmManager
 														.set(AlarmManager.RTC,
 																calendar.getTimeInMillis(),
