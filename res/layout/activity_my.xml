@@ -7,59 +7,59 @@
     tools:ignore="MergeRootFrame" >
 
     <TableLayout
-        
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
         <TableRow
             android:id="@+id/tableRow1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
 
             <TextView
                 android:id="@+id/text_top"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:ems="10"
                 android:inputType="none"
                 android:text="@string/show_for_search" />
-
         </TableRow>
 
         <TableRow
             android:id="@+id/tableRow2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="0dp"
+            android:layout_weight="1" >
 
             <EditText
                 android:id="@+id/input_text"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/write_here" >
 
                 <requestFocus />
             </EditText>
-
         </TableRow>
 
         <TableRow
             android:id="@+id/tableRow3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="0dp"
+            android:layout_weight="1" >
 
             <Button
                 android:id="@+id/search_sender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/search_button" />
-
         </TableRow>
 
         <TableRow
             android:id="@+id/tableRow4"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="0dp"
+            android:layout_weight="1" >
 
             <TextView
                 android:id="@+id/result_show"
@@ -67,41 +67,41 @@
                 android:layout_height="wrap_content"
                 android:text="@string/result_en"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
-
         </TableRow>
 
         <TableRow
             android:id="@+id/tableRow5"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="0dp"
+            android:layout_weight="1" >
 
             <TextView
                 android:id="@+id/text_result"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
-
         </TableRow>
 
         <TableRow
             android:id="@+id/tableRow6"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="0dp"
+            android:layout_weight="1" >
 
             <ImageView
                 android:id="@+id/banner_show"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:contentDescription="@string/description_en"
                 android:scaleType="fitXY"
                 android:src="@drawable/abc_ab_bottom_solid_dark_holo"
                 android:visibility="invisible" />
-
         </TableRow>
 
         <RelativeLayout
             android:layout_width="315dp"
-            android:layout_height="220dp" >
+            android:layout_height="220dp"
+            android:layout_weight="1" >
 
             <Button
                 android:id="@+id/about_button"
@@ -111,9 +111,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="19dp"
                 android:text="@string/about" />
-
         </RelativeLayout>
-
     </TableLayout>
 
 </FrameLayout>

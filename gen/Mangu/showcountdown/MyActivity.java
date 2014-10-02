@@ -23,7 +23,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.provider.CalendarContract.Events;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -134,19 +133,17 @@ public class MyActivity extends Activity {
 												calendar.set(Calendar.AM_PM,
 														Calendar.PM);
 												calendar.set(
-														Calendar.HOUR_OF_DAY,
-														15);
+														Calendar.HOUR_OF_DAY, 9);
 												calendar.set(Calendar.MINUTE, 0);
 												calendar.set(Calendar.SECOND, 0);
 												AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 												Intent myIntent = new Intent(
 														MyActivity.this,
-														AlarmReceiver.class);
+														MyAlarmService.class);
 												PendingIntent pendingIntent = PendingIntent
-														.getBroadcast(
+														.getService(
 																MyActivity.this,
-																0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-												
+																0, myIntent, 0);
 												alarmManager
 														.set(AlarmManager.RTC,
 																calendar.getTimeInMillis(),

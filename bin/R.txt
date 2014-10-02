@@ -234,7 +234,7 @@ int drawable abc_textfield_searchview_right_holo_dark 0x7f020055
 int drawable abc_textfield_searchview_right_holo_light 0x7f020056
 int drawable ic_launcher 0x7f020057
 int id about_application 0x7f05003d
-int id about_application2 0x7f050040
+int id about_application2 0x7f05003f
 int id about_button 0x7f05004b
 int id action_bar 0x7f05001c
 int id action_bar_activity_content 0x7f050015
@@ -253,7 +253,7 @@ int id banner_show 0x7f05004a
 int id beginning 0x7f050011
 int id checkbox 0x7f05002d
 int id collapseActionView 0x7f05000d
-int id container 0x7f050041
+int id container 0x7f050040
 int id default_activity_button 0x7f050028
 int id dialog 0x7f05000e
 int id disableHome 0x7f050008
@@ -267,7 +267,7 @@ int id homeAsUp 0x7f050005
 int id icon 0x7f05002a
 int id ifRoom 0x7f05000a
 int id image 0x7f050027
-int id input_text 0x7f050043
+int id input_text 0x7f050042
 int id listMode 0x7f050001
 int id list_item 0x7f050029
 int id middle 0x7f050012
@@ -297,13 +297,13 @@ int id split_action_bar 0x7f05001e
 int id submit_area 0x7f050039
 int id tabMode 0x7f050002
 int id tableRow1 0x7f05003c
-int id tableRow2 0x7f05003f
-int id tableRow3 0x7f05003e
+int id tableRow2 0x7f05003e
+int id tableRow3 0x7f050043
 int id tableRow4 0x7f050045
 int id tableRow5 0x7f050047
 int id tableRow6 0x7f050049
 int id text_result 0x7f050048
-int id text_top 0x7f050042
+int id text_top 0x7f050041
 int id title 0x7f05002b
 int id top_action_bar 0x7f050020
 int id up 0x7f050021
@@ -360,6 +360,8 @@ int string description_en 0x7f0a0013
 int string no 0x7f0a001f
 int string no_episodes 0x7f0a0015
 int string no_exists 0x7f0a001a
+int string notification 0x7f0a0020
+int string reminder 0x7f0a0021
 int string result_en 0x7f0a0012
 int string search_button 0x7f0a000f
 int string setCalendar 0x7f0a001d

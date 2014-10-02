@@ -9,24 +9,25 @@ import java.net.URL;
 import java.net.URLConnection;
 import android.os.AsyncTask;
 
-
 public class BackgroundDownload extends AsyncTask<String, Integer, String> {
-	
+
 	@Override
 	protected String doInBackground(String... arg0) {
-		String input="";
+		String input = "";
 		try {
 			URL url = new URL(arg0[0]);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
-			BufferedReader buff = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			
+
+			BufferedReader buff = new BufferedReader(new InputStreamReader(
+					conn.getInputStream()));
+
 			String text;
-			while((text = buff.readLine())!=null) {
-				input+=text;
+			while ((text = buff.readLine()) != null) {
+				input += text;
 			}
 			buff.close();
-			
+
 		} catch (MalformedURLException localMalformedURLException) {
 			localMalformedURLException.printStackTrace();
 		} catch (IOException localIOException) {
@@ -34,5 +35,5 @@ public class BackgroundDownload extends AsyncTask<String, Integer, String> {
 		}
 		return input;
 	}
-	
+
 }

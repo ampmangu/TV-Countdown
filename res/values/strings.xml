@@ -11,7 +11,7 @@
     <string name="no_episodes">There is no new episodes</string>
     <string name="about">About</string>
     <string name="wait">Wait, the app is downloading the information of the show.</string>
-    <string name="about_app">This app has been developed for the purpose of making easier the search of the date of the new episodes of your favorites shows.</string>
+    <string name="about_app">This app has been developed for the purpose of making easier the search of the date of the new episodes of your favorites shows. \n</string>
     <string name="about_help">If you have any troubles with the app please contact me at adrianmarinportillo@gmail.com </string>
 	<string name="no_exists">That show does not exist in the TV guide, try again.</string>
 	<string name="tba">TBA.</string>
@@ -19,4 +19,6 @@
 	<string name="setCalendar">Do you want to create a reminder?</string>
 	<string name="yes">Yes</string>
 	<string name="no">No</string>
+	<string name="notification">Notification added</string>
+	<string name="reminder">Reminder</string>
 </resources>
