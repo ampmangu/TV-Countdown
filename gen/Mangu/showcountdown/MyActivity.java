@@ -112,7 +112,7 @@ public class MyActivity extends Activity {
 						new AlertDialog.Builder(MyActivity.this)
 								.setTitle(
 										getText(R.string.title_reminder)
-												+ episode_title)
+												+ " " + episode_title)
 								.setMessage(R.string.setCalendar)
 								.setPositiveButton(R.string.yes,
 										new DialogInterface.OnClickListener() {
