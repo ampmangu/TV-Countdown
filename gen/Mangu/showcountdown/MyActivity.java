@@ -80,11 +80,15 @@ public class MyActivity extends Activity {
 									.doInBackground(str2)))).get("season"));
 					String str5 = episode_init + show_to_search + "/"
 							+ season_number;
-					JSONObject localJSONObject = new JSONObject(
+					/*JSONObject localJSONObject = new JSONObject(
 							(makeJSON(localBackgroundDownload
-									.doInBackground(str5))));
-					String episode_number = String.valueOf(localJSONObject
-							.get("episode"));
+									.doInBackground(str5))));*/
+					JSONArray localJSONArray = new JSONArray(localBackgroundDownload.doInBackground(str5));
+					
+					//String episode_number = String.valueOf(localJSONObject
+							//.get("episode"));
+					String episode_number = getRightEpisode(localJSONArray);
+					JSONObject localJSONObject = localJSONArray.getJSONObject(Integer.parseInt(episode_number)-1);
 					// Aqui esta el fallo.
 					String episode_title = String.valueOf(localJSONObject
 							.getString("title"));
@@ -255,7 +259,6 @@ public class MyActivity extends Activity {
 	 */
 	private static String getRightEpisode(JSONObject localJSON) throws ParseException {
 		String numberOfEpisode = "";
-		JSONObject copy = new JSONObject();
 		while (localJSON.has("episode")) {
 			numberOfEpisode = localJSON.getString("episode");
 			String iso_date = getFinalDate(String.valueOf(localJSON.get("first_aired_iso")));
@@ -265,6 +268,19 @@ public class MyActivity extends Activity {
 		}
 
 		return "";
+	}
+	private static String getRightEpisode(JSONArray localJSON)
+			throws ParseException {
+		String numberOfEpisode = "";
+		for (int i = 0; i < localJSON.length(); i++) {
+			JSONObject localObject = localJSON.getJSONObject(i);
+			numberOfEpisode = String.valueOf(localObject.get("episode"));
+			String iso_date = (String.valueOf(localObject.get("first_aired_iso")));
+			if (checkDate(iso_date)) {
+				break;
+			}
+		}
+		return numberOfEpisode;
 	}
 
 	/**
