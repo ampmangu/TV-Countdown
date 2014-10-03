@@ -72,23 +72,25 @@ public class MyActivity extends Activity {
 							"-");
 
 					String str2 = show_init + show_to_search;
-
-					Toast.makeText(getApplicationContext(),
-							getText(R.string.wait), Toast.LENGTH_LONG);
 					String season_number = String.valueOf(new JSONObject(
 							(makeJSON(localBackgroundDownload
 									.doInBackground(str2)))).get("season"));
 					String str5 = episode_init + show_to_search + "/"
 							+ season_number;
-					/*JSONObject localJSONObject = new JSONObject(
-							(makeJSON(localBackgroundDownload
-									.doInBackground(str5))));*/
-					JSONArray localJSONArray = new JSONArray(localBackgroundDownload.doInBackground(str5));
-					
-					//String episode_number = String.valueOf(localJSONObject
-							//.get("episode"));
+					/*
+					 * JSONObject localJSONObject = new JSONObject(
+					 * (makeJSON(localBackgroundDownload
+					 * .doInBackground(str5))));
+					 */
+					// hacer un execute
+					JSONArray localJSONArray = new JSONArray(
+							localBackgroundDownload.doInBackground(str5));
+
+					// String episode_number = String.valueOf(localJSONObject
+					// .get("episode"));
 					String episode_number = getRightEpisode(localJSONArray);
-					JSONObject localJSONObject = localJSONArray.getJSONObject(Integer.parseInt(episode_number)-1);
+					JSONObject localJSONObject = localJSONArray
+							.getJSONObject(Integer.parseInt(episode_number) - 1);
 					// Aqui esta el fallo.
 					String episode_title = String.valueOf(localJSONObject
 							.getString("title"));
@@ -182,8 +184,9 @@ public class MyActivity extends Activity {
 					Toast.makeText(getApplicationContext(), ex.getMessage(),
 							Toast.LENGTH_LONG).show();
 				} catch (Exception exx) {
-					Toast.makeText(getApplicationContext(), exx.getMessage(),
-							Toast.LENGTH_LONG).show();
+					result_show.setText(R.string.no_exists);
+					banner_show.setVisibility(View.INVISIBLE);
+					text_result.setVisibility(View.INVISIBLE);
 				}
 
 			}
@@ -228,9 +231,9 @@ public class MyActivity extends Activity {
 		return Integer.getInteger(paramString.substring(6, 10),
 				new Date().getYear());
 	}
+
 	/**
-	 * @author Adrian Marin
-	 * Returns true if date given is after actual date
+	 * @author Adrian Marin Returns true if date given is after actual date
 	 * @param paramString
 	 * @return i
 	 * @throws ParseException
@@ -257,25 +260,15 @@ public class MyActivity extends Activity {
 	 * @param localJSON
 	 * @return numberOfEpisode
 	 */
-	private static String getRightEpisode(JSONObject localJSON) throws ParseException {
-		String numberOfEpisode = "";
-		while (localJSON.has("episode")) {
-			numberOfEpisode = localJSON.getString("episode");
-			String iso_date = getFinalDate(String.valueOf(localJSON.get("first_aired_iso")));
-			if(checkDate(iso_date)) {
-				break;
-			}
-		}
 
-		return "";
-	}
 	private static String getRightEpisode(JSONArray localJSON)
 			throws ParseException {
 		String numberOfEpisode = "";
 		for (int i = 0; i < localJSON.length(); i++) {
 			JSONObject localObject = localJSON.getJSONObject(i);
 			numberOfEpisode = String.valueOf(localObject.get("episode"));
-			String iso_date = (String.valueOf(localObject.get("first_aired_iso")));
+			String iso_date = (String.valueOf(localObject
+					.get("first_aired_iso")));
 			if (checkDate(iso_date)) {
 				break;
 			}
@@ -293,11 +286,9 @@ public class MyActivity extends Activity {
 		String str = paramString;
 		if (paramString.equalsIgnoreCase("juego de tronos")) {
 			str = "game-of-thrones";
-			
 		}
 		if (paramString.equalsIgnoreCase("la cupula")) {
 			str = "under-the-dome";
-			
 		}
 		if (paramString.equalsIgnoreCase("big bang theory")) {
 			str = "the-big-bang-theory";
@@ -335,8 +326,9 @@ public class MyActivity extends Activity {
 		if (paramString.equalsIgnoreCase("masterchef")) {
 			str = "masterchef-us";
 		}
-
+		if (paramString.equalsIgnoreCase("faking it")) {
+			str = "faking-it-2014";
+		}
 		return str;
 	}
-
 }

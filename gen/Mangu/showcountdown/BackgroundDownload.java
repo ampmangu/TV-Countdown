@@ -6,11 +6,14 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
+
 import android.os.AsyncTask;
 
 public class BackgroundDownload extends AsyncTask<String, Integer, String> {
-
+	/*private String value;
+	public BackgroundDownload (String arg) {
+		this.value=arg;
+	}*/
 	@Override
 	protected String doInBackground(String... arg0) {
 		String input = "";
@@ -35,5 +38,6 @@ public class BackgroundDownload extends AsyncTask<String, Integer, String> {
 		}
 		return input;
 	}
+	
 
 }
