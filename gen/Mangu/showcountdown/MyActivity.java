@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -69,7 +70,7 @@ public class MyActivity extends Activity {
 					show_to_search = changeShow(show_to_search);
 					show_to_search = show_to_search.toLowerCase().replace(" ",
 							"-");
-					
+
 					String str2 = show_init + show_to_search;
 
 					Toast.makeText(getApplicationContext(),
@@ -84,7 +85,7 @@ public class MyActivity extends Activity {
 									.doInBackground(str5))));
 					String episode_number = String.valueOf(localJSONObject
 							.get("episode"));
-					
+					// Aqui esta el fallo.
 					String episode_title = String.valueOf(localJSONObject
 							.getString("title"));
 					String iso_date = String.valueOf(localJSONObject
@@ -223,7 +224,13 @@ public class MyActivity extends Activity {
 		return Integer.getInteger(paramString.substring(6, 10),
 				new Date().getYear());
 	}
-
+	/**
+	 * @author Adrian Marin
+	 * Returns true if date given is after actual date
+	 * @param paramString
+	 * @return i
+	 * @throws ParseException
+	 */
 	private static boolean checkDate(String paramString) throws ParseException {
 		int i = 0;
 		SimpleDateFormat localSimpleDateFormat = new SimpleDateFormat(
@@ -242,6 +249,25 @@ public class MyActivity extends Activity {
 	}
 
 	/**
+	 * @author Adrian Marin This method should the good number of the episode.
+	 * @param localJSON
+	 * @return numberOfEpisode
+	 */
+	private static String getRightEpisode(JSONObject localJSON) throws ParseException {
+		String numberOfEpisode = "";
+		JSONObject copy = new JSONObject();
+		while (localJSON.has("episode")) {
+			numberOfEpisode = localJSON.getString("episode");
+			String iso_date = getFinalDate(String.valueOf(localJSON.get("first_aired_iso")));
+			if(checkDate(iso_date)) {
+				break;
+			}
+		}
+
+		return "";
+	}
+
+	/**
 	 * @author Adrian Marin This method is bullshit but is the only thing I can
 	 *         do, I can't use the switch statement with a String
 	 * @param paramString
@@ -251,9 +277,11 @@ public class MyActivity extends Activity {
 		String str = paramString;
 		if (paramString.equalsIgnoreCase("juego de tronos")) {
 			str = "game-of-thrones";
+			
 		}
 		if (paramString.equalsIgnoreCase("la cupula")) {
 			str = "under-the-dome";
+			
 		}
 		if (paramString.equalsIgnoreCase("big bang theory")) {
 			str = "the-big-bang-theory";
