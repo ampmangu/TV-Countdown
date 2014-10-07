@@ -43,6 +43,7 @@ public class MyActivity extends Activity {
 	private ImageView banner_show;
 	private EditText input_text;
 	private Button search_sender;
+	static String vv = "";
 	private TextView text_result;
 
 	@Override
@@ -77,7 +78,7 @@ public class MyActivity extends Activity {
 									.doInBackground(str2)))).get("season"));
 					String str5 = episode_init + show_to_search + "/"
 							+ season_number;
-
+					
 					// hacer un execute
 					JSONArray localJSONArray = new JSONArray(
 							localBackgroundDownload.doInBackground(str5));

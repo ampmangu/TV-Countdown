@@ -24,7 +24,7 @@ public class MyAlarmService extends IntentService {
 		Notification notification = new Notification(R.drawable.ic_launcher,
 				this.getText(R.string.notification), System.currentTimeMillis());
 		notification.defaults |= Notification.DEFAULT_SOUND;
-		notification.flags |= notification.FLAG_AUTO_CANCEL;
+		notification.flags |= Notification.FLAG_AUTO_CANCEL;
 		PendingIntent pendingNotificationIntent = PendingIntent.getActivity(
 				this.getApplicationContext(), 0, intent1, 0);
 		notification.setLatestEventInfo(this.getApplicationContext(),

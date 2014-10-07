@@ -36,6 +36,13 @@ public class BackgroundDownload extends AsyncTask<String, Integer, String> {
 		}
 		return input;
 	}
-
+/*
+	@Override
+	protected void onPostExecute(String result) {
+		// TODO Auto-generated method stub
+		super.onPostExecute(result);
+		
+	}
+	*/
 
 }
