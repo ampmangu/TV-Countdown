@@ -26,6 +26,7 @@ public class BackgroundDownload extends AsyncTask<String, Integer, String> {
 				input += text;
 			}
 			buff.close();
+			
 
 		} catch (MalformedURLException localMalformedURLException) {
 			localMalformedURLException.printStackTrace();
@@ -34,6 +35,7 @@ public class BackgroundDownload extends AsyncTask<String, Integer, String> {
 		}
 		return input;
 	}
+
 	
 
 }
