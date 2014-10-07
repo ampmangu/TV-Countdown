@@ -10,6 +10,8 @@ import java.net.URL;
 import android.os.AsyncTask;
 
 public class BackgroundDownload extends AsyncTask<String, Integer, String> {
+	
+
 	@Override
 	protected String doInBackground(String... arg0) {
 		String input = "";
@@ -26,7 +28,6 @@ public class BackgroundDownload extends AsyncTask<String, Integer, String> {
 				input += text;
 			}
 			buff.close();
-			
 
 		} catch (MalformedURLException localMalformedURLException) {
 			localMalformedURLException.printStackTrace();
@@ -36,6 +37,5 @@ public class BackgroundDownload extends AsyncTask<String, Integer, String> {
 		return input;
 	}
 
-	
 
 }
