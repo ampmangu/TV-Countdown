@@ -70,24 +70,18 @@ public class MyActivity extends Activity {
 					show_to_search = changeShow(show_to_search);
 					show_to_search = show_to_search.toLowerCase().replace(" ",
 							"-");
-
+					//JSONObject seasonJSON = localBackgroundDownload.execute("season");
 					String str2 = show_init + show_to_search;
 					String season_number = String.valueOf(new JSONObject(
 							(makeJSON(localBackgroundDownload
 									.doInBackground(str2)))).get("season"));
 					String str5 = episode_init + show_to_search + "/"
 							+ season_number;
-					/*
-					 * JSONObject localJSONObject = new JSONObject(
-					 * (makeJSON(localBackgroundDownload
-					 * .doInBackground(str5))));
-					 */
+
 					// hacer un execute
 					JSONArray localJSONArray = new JSONArray(
 							localBackgroundDownload.doInBackground(str5));
 
-					// String episode_number = String.valueOf(localJSONObject
-					// .get("episode"));
 					String episode_number = getRightEpisode(localJSONArray);
 					JSONObject localJSONObject = localJSONArray
 							.getJSONObject(Integer.parseInt(episode_number) - 1);
@@ -145,6 +139,7 @@ public class MyActivity extends Activity {
 														Calendar.HOUR_OF_DAY, 9);
 												calendar.set(Calendar.MINUTE, 0);
 												calendar.set(Calendar.SECOND, 0);
+												
 												AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 												Intent myIntent = new Intent(
 														MyActivity.this,
