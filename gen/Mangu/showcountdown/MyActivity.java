@@ -66,6 +66,7 @@ public class MyActivity extends Activity {
 					StrictMode
 							.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
 									.permitAll().build());
+							//Pasar string
 					BackgroundDownload localBackgroundDownload = new BackgroundDownload();
 					String show_to_search = input_text.getText().toString();
 					show_to_search = changeShow(show_to_search);
@@ -78,7 +79,7 @@ public class MyActivity extends Activity {
 									.doInBackground(str2)))).get("season"));
 					String str5 = episode_init + show_to_search + "/"
 							+ season_number;
-					
+
 					// hacer un execute
 					JSONArray localJSONArray = new JSONArray(
 							localBackgroundDownload.doInBackground(str5));
@@ -140,7 +141,7 @@ public class MyActivity extends Activity {
 														Calendar.HOUR_OF_DAY, 9);
 												calendar.set(Calendar.MINUTE, 0);
 												calendar.set(Calendar.SECOND, 0);
-												
+
 												AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 												Intent myIntent = new Intent(
 														MyActivity.this,

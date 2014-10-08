@@ -10,7 +10,10 @@ import java.net.URL;
 import android.os.AsyncTask;
 
 public class BackgroundDownload extends AsyncTask<String, Integer, String> {
-	
+	/*private String src;
+	public BackgroundDownload(String src) {
+		this.src=src;
+	}*/
 
 	@Override
 	protected String doInBackground(String... arg0) {
@@ -38,10 +41,11 @@ public class BackgroundDownload extends AsyncTask<String, Integer, String> {
 	}
 /*
 	@Override
+	Llamar funcion para pasar a MiActivity¿?
 	protected void onPostExecute(String result) {
 		// TODO Auto-generated method stub
 		super.onPostExecute(result);
-		
+
 	}
 	*/
 
