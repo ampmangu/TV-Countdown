@@ -1,14 +1,19 @@
 package Mangu.showcountdown;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,13 +22,16 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v4.util.TimeUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -67,22 +75,24 @@ public class MyActivity extends Activity {
 							.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
 									.permitAll().build());
 							//Pasar string
-					BackgroundDownload localBackgroundDownload = new BackgroundDownload();
+					Downloader localBackgroundDownload = new Downloader();
 					String show_to_search = input_text.getText().toString();
 					show_to_search = changeShow(show_to_search);
 					show_to_search = show_to_search.toLowerCase().replace(" ",
 							"-");
-					//JSONObject seasonJSON = localBackgroundDownload.execute("season");
+					
 					String str2 = show_init + show_to_search;
+					
 					String season_number = String.valueOf(new JSONObject(
 							(makeJSON(localBackgroundDownload
-									.doInBackground(str2)))).get("season"));
+									.execute(str2).get(5L, TimeUnit.SECONDS)))).get("season"));
 					String str5 = episode_init + show_to_search + "/"
 							+ season_number;
 
 					// hacer un execute
+					localBackgroundDownload = new Downloader();
 					JSONArray localJSONArray = new JSONArray(
-							localBackgroundDownload.doInBackground(str5));
+							localBackgroundDownload.execute(str5).get(5L, TimeUnit.SECONDS ));
 
 					String episode_number = getRightEpisode(localJSONArray);
 					JSONObject localJSONObject = localJSONArray
@@ -95,8 +105,9 @@ public class MyActivity extends Activity {
 					final String final_date = getFinalDate(iso_date);
 					String str10 = summary_init + show_to_search + "/"
 							+ season_number + "/" + episode_number;
+					localBackgroundDownload = new Downloader();
 					JSONObject banner = new JSONObject(localBackgroundDownload
-							.doInBackground(str10));
+							.execute(str10).get(5L, TimeUnit.SECONDS));
 					String banner_url = banner.getJSONObject("show")
 							.getJSONObject("images").getString("banner");
 					if (checkDate(iso_date)) {
@@ -180,6 +191,8 @@ public class MyActivity extends Activity {
 				} catch (IOException ex) {
 					Toast.makeText(getApplicationContext(), ex.getMessage(),
 							Toast.LENGTH_LONG).show();
+				} catch (TimeoutException ei) {
+					
 				} catch (Exception exx) {
 					result_show.setText(R.string.no_exists);
 					banner_show.setVisibility(View.INVISIBLE);
@@ -327,5 +340,48 @@ public class MyActivity extends Activity {
 			str = "faking-it-2014";
 		}
 		return str;
+	}
+	private class Downloader extends AsyncTask<String, Integer, String> {
+		ProgressDialog pDialog;
+		@Override
+		protected void onPreExecute() {
+		    // Showing progress dialog before sending http request
+		    pDialog = new ProgressDialog(
+		            MyActivity.this);
+		    pDialog.setMessage("Please wait..");
+		    pDialog.setIndeterminate(true);
+		    pDialog.setCancelable(false);
+		    pDialog.show();
+		}
+
+		@Override
+		protected String doInBackground(String... arg0) {
+			String input = "";
+			try {
+				URL url = new URL(arg0[0]);
+				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+				conn.setRequestMethod("GET");
+
+				BufferedReader buff = new BufferedReader(new InputStreamReader(
+						conn.getInputStream()));
+
+				String text;
+				while ((text = buff.readLine()) != null) {
+					input += text;
+				}
+				buff.close();
+
+			} catch (MalformedURLException localMalformedURLException) {
+				localMalformedURLException.printStackTrace();
+			} catch (IOException localIOException) {
+				localIOException.printStackTrace();
+			}
+			return input;
+		}
+		@Override
+		protected void onPostExecute(String result) {
+			pDialog.dismiss();
+			
+		}
 	}
 }
