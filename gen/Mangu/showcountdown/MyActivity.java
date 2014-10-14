@@ -32,6 +32,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.util.TimeUtils;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -83,125 +84,91 @@ public class MyActivity extends Activity {
 					Downloader localBackgroundDownload = new Downloader(
 							show_to_search);
 					localBackgroundDownload.execute(str2);
-					wait();
-					/*String season_number = String.valueOf(new JSONObject(
-							(makeJSON(localBackgroundDownload.execute(str2)
-									.get(5L, TimeUnit.SECONDS)))).get("season"));
-					String str5 = episode_init + show_to_search + "/"
-							+ season_number;
-
-					// hacer un execute
-					// localBackgroundDownload = new Downloader();
-					JSONArray localJSONArray = new JSONArray(
-							localBackgroundDownload.execute(str5).get(5L,
-									TimeUnit.SECONDS));
-
-					String episode_number = getRightEpisode(localJSONArray);
-					JSONObject localJSONObject = localJSONArray
-							.getJSONObject(Integer.parseInt(episode_number) - 1);
-					// Aqui esta el fallo.
-					String episode_title = String.valueOf(localJSONObject
-							.getString("title"));
-					String iso_date = String.valueOf(localJSONObject
-							.get("first_aired_iso"));
-					final String final_date = getFinalDate(iso_date);
-					String str10 = summary_init + show_to_search + "/"
-							+ season_number + "/" + episode_number;
-					// localBackgroundDownload = new Downloader();
-					JSONObject banner = new JSONObject(localBackgroundDownload
-							.execute(str10).get(5L, TimeUnit.SECONDS));
-					String banner_url = banner.getJSONObject("show")
-							.getJSONObject("images").getString("banner");
-					if (checkDate(iso_date)) {
-						if (episode_title.equalsIgnoreCase("TBA")) {
-							episode_title = getApplicationContext().getString(
-									R.string.tba);
-						}
-						result_show.setText((getText(R.string.result_en)) + " "
-								+ episode_title);
-						text_result.setVisibility(View.VISIBLE);
-						text_result.setText((getText(R.string.date_next)) + " "
-								+ final_date);
-						InputStream localIS = getImage(banner_url);
-						Bitmap localBitmap = BitmapFactory
-								.decodeStream(localIS);
-						banner_show.setImageBitmap(localBitmap);
-						banner_show.setVisibility(View.VISIBLE);
-						new AlertDialog.Builder(MyActivity.this)
-								.setTitle(
-										getText(R.string.title_reminder) + " "
-												+ episode_title)
-								.setMessage(R.string.setCalendar)
-								.setPositiveButton(R.string.yes,
-										new DialogInterface.OnClickListener() {
-
-											@Override
-											public void onClick(
-													DialogInterface dialog,
-													int which) {
-												Calendar calendar = Calendar
-														.getInstance();
-												calendar.set(
-														Calendar.DAY_OF_MONTH,
-														getDay(final_date));
-												calendar.set(Calendar.MONTH,
-														getMonth(final_date));
-												calendar.set(Calendar.YEAR,
-														getYear(final_date));
-												calendar.set(Calendar.AM_PM,
-														Calendar.PM);
-												calendar.set(
-														Calendar.HOUR_OF_DAY, 9);
-												calendar.set(Calendar.MINUTE, 0);
-												calendar.set(Calendar.SECOND, 0);
-
-												AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-												Intent myIntent = new Intent(
-														MyActivity.this,
-														MyAlarmService.class);
-												PendingIntent pendingIntent = PendingIntent
-														.getService(
-																MyActivity.this,
-																0, myIntent, 0);
-												alarmManager
-														.set(AlarmManager.RTC,
-																calendar.getTimeInMillis(),
-																pendingIntent);
-												dialog.cancel();
-											}
-										})
-								.setNegativeButton(R.string.no,
-										new DialogInterface.OnClickListener() {
-											@Override
-											public void onClick(
-													DialogInterface dialog,
-													int which) {
-												// Do nothing.
-												dialog.cancel();
-											}
-										}).setIcon(R.drawable.ic_launcher)
-								.show();
-						localIS.close();
-					} else {
-						result_show.setText(R.string.no_episodes);
-						banner_show.setVisibility(View.INVISIBLE);
-						text_result.setVisibility(View.INVISIBLE);
-					}*/
-				} /*catch (FileNotFoundException e) {
-					Toast.makeText(getApplicationContext(), R.string.no_exists,
-							Toast.LENGTH_LONG).show();
-				} catch (IOException ex) {
-					Toast.makeText(getApplicationContext(), ex.getMessage(),
-							Toast.LENGTH_LONG).show();
-				} catch (TimeoutException ei) {
-
-				} */
+					/*
+					 * String season_number = String.valueOf(new JSONObject(
+					 * (makeJSON(localBackgroundDownload.execute(str2) .get(5L,
+					 * TimeUnit.SECONDS)))).get("season")); String str5 =
+					 * episode_init + show_to_search + "/" + season_number;
+					 * 
+					 * // hacer un execute // localBackgroundDownload = new
+					 * Downloader(); JSONArray localJSONArray = new JSONArray(
+					 * localBackgroundDownload.execute(str5).get(5L,
+					 * TimeUnit.SECONDS));
+					 * 
+					 * String episode_number = getRightEpisode(localJSONArray);
+					 * JSONObject localJSONObject = localJSONArray
+					 * .getJSONObject(Integer.parseInt(episode_number) - 1); //
+					 * Aqui esta el fallo. String episode_title =
+					 * String.valueOf(localJSONObject .getString("title"));
+					 * String iso_date = String.valueOf(localJSONObject
+					 * .get("first_aired_iso")); final String final_date =
+					 * getFinalDate(iso_date); String str10 = summary_init +
+					 * show_to_search + "/" + season_number + "/" +
+					 * episode_number; // localBackgroundDownload = new
+					 * Downloader(); JSONObject banner = new
+					 * JSONObject(localBackgroundDownload
+					 * .execute(str10).get(5L, TimeUnit.SECONDS)); String
+					 * banner_url = banner.getJSONObject("show")
+					 * .getJSONObject("images").getString("banner"); if
+					 * (checkDate(iso_date)) { if
+					 * (episode_title.equalsIgnoreCase("TBA")) { episode_title =
+					 * getApplicationContext().getString( R.string.tba); }
+					 * result_show.setText((getText(R.string.result_en)) + " " +
+					 * episode_title); text_result.setVisibility(View.VISIBLE);
+					 * text_result.setText((getText(R.string.date_next)) + " " +
+					 * final_date); InputStream localIS = getImage(banner_url);
+					 * Bitmap localBitmap = BitmapFactory
+					 * .decodeStream(localIS);
+					 * banner_show.setImageBitmap(localBitmap);
+					 * banner_show.setVisibility(View.VISIBLE); new
+					 * AlertDialog.Builder(MyActivity.this) .setTitle(
+					 * getText(R.string.title_reminder) + " " + episode_title)
+					 * .setMessage(R.string.setCalendar)
+					 * .setPositiveButton(R.string.yes, new
+					 * DialogInterface.OnClickListener() {
+					 * 
+					 * @Override public void onClick( DialogInterface dialog,
+					 * int which) { Calendar calendar = Calendar .getInstance();
+					 * calendar.set( Calendar.DAY_OF_MONTH, getDay(final_date));
+					 * calendar.set(Calendar.MONTH, getMonth(final_date));
+					 * calendar.set(Calendar.YEAR, getYear(final_date));
+					 * calendar.set(Calendar.AM_PM, Calendar.PM); calendar.set(
+					 * Calendar.HOUR_OF_DAY, 9); calendar.set(Calendar.MINUTE,
+					 * 0); calendar.set(Calendar.SECOND, 0);
+					 * 
+					 * AlarmManager alarmManager = (AlarmManager)
+					 * getSystemService(Context.ALARM_SERVICE); Intent myIntent
+					 * = new Intent( MyActivity.this, MyAlarmService.class);
+					 * PendingIntent pendingIntent = PendingIntent .getService(
+					 * MyActivity.this, 0, myIntent, 0); alarmManager
+					 * .set(AlarmManager.RTC, calendar.getTimeInMillis(),
+					 * pendingIntent); dialog.cancel(); } })
+					 * .setNegativeButton(R.string.no, new
+					 * DialogInterface.OnClickListener() {
+					 * 
+					 * @Override public void onClick( DialogInterface dialog,
+					 * int which) { // Do nothing. dialog.cancel(); }
+					 * }).setIcon(R.drawable.ic_launcher) .show();
+					 * localIS.close(); } else {
+					 * result_show.setText(R.string.no_episodes);
+					 * banner_show.setVisibility(View.INVISIBLE);
+					 * text_result.setVisibility(View.INVISIBLE); }
+					 */
+				} /*
+				 * catch (FileNotFoundException e) {
+				 * Toast.makeText(getApplicationContext(), R.string.no_exists,
+				 * Toast.LENGTH_LONG).show(); } catch (IOException ex) {
+				 * Toast.makeText(getApplicationContext(), ex.getMessage(),
+				 * Toast.LENGTH_LONG).show(); } catch (TimeoutException ei) {
+				 * 
+				 * }
+				 */
 				catch (Exception exx) {
 					result_show.setText(R.string.no_exists);
 					banner_show.setVisibility(View.INVISIBLE);
 					text_result.setVisibility(View.INVISIBLE);
 				}
-				
+
 			}
 		});
 		this.about.setOnClickListener(new View.OnClickListener() {
@@ -345,17 +312,18 @@ public class MyActivity extends Activity {
 		return str;
 	}
 
-	private class Downloader extends AsyncTask<String, Integer, String> {
-
+	private class Downloader extends
+			AsyncTask<String, Pair<String, Object>, String> {
 		private String show_to_search;
+
 		/*
-		 * http://stackoverflow.com/questions/8183111/accessing-views-from-other-thread-android
-		 * 
+		 * http://stackoverflow.com/questions/8183111/accessing-views-from-other-
+		 * thread-android
 		 */
 		public Downloader(String show_to_search) {
 			this.show_to_search = show_to_search;
 		}
-		
+
 		@Override
 		protected String doInBackground(String... arg0) {
 
@@ -387,26 +355,57 @@ public class MyActivity extends Activity {
 						episode_title = getApplicationContext().getString(
 								R.string.tba);
 					}
-					result_show.setText((getText(R.string.result_en)) + " "
-							+ episode_title);
-					text_result.setVisibility(View.VISIBLE);
-					text_result.setText((getText(R.string.date_next)) + " "
-							+ final_date);
+					/*
+					 * result_show.setText((getText(R.string.result_en)) + " " +
+					 * episode_title);
+					 */
+					Pair<String, Object> pair_rs = new Pair<String, Object>(
+							"result_show", episode_title);
+					publishProgress(pair_rs);
+					/*
+					 * text_result.setVisibility(View.VISIBLE);
+					 * text_result.setText((getText(R.string.date_next)) + " " +
+					 * final_date);
+					 */
+					Pair<String, Object> pair_tr = new Pair<String, Object>(
+							"text_result", final_date);
+					publishProgress(pair_tr);
 					InputStream localIS = getImage(banner_url);
-					Bitmap localBitmap = BitmapFactory
-							.decodeStream(localIS);
-					banner_show.setImageBitmap(localBitmap);
-					banner_show.setVisibility(View.VISIBLE);
+					Bitmap localBitmap = BitmapFactory.decodeStream(localIS);
+					Pair<String, Object> pair_bm = new Pair<String, Object>(
+							"banner", localBitmap);
+					publishProgress(pair_bm);
+					/*banner_show.setImageBitmap(localBitmap);
+					banner_show.setVisibility(View.VISIBLE);*/
 				}
 			} catch (ParseException e) {
-			} catch(IOException ex) {			
+			} catch (IOException ex) {
 			}
 			return "";
 
 		}
+
 		@Override
-		protected void onPostExecute(String result) {
-			notify();
+		protected void onProgressUpdate(Pair<String, Object>... values) {
+			if (values[0].first.equalsIgnoreCase("result_show")) {
+				if(values[0].second instanceof String) {
+				result_show.setText((getText(R.string.result_en)) + " "
+						+ values[0].second);
+				}
+			}
+			if (values[0].first.equalsIgnoreCase("text_result")) {
+				if(values[0].second instanceof String) {
+				text_result.setVisibility(View.VISIBLE);
+				text_result.setText((getText(R.string.date_next)) + " "
+						+ values[0].second);
+				}
+			}
+			if (values[0].first.equalsIgnoreCase("banner")) {
+				if (values[0].second instanceof Bitmap) {
+					banner_show.setImageBitmap((Bitmap) values[0].second);
+					banner_show.setVisibility(View.VISIBLE);
+				}
+			}
 		}
 
 		private String download(String... arg0) {
@@ -433,7 +432,6 @@ public class MyActivity extends Activity {
 			}
 			return input;
 		}
-
 
 	}
 }
