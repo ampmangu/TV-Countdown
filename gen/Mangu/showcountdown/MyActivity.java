@@ -74,25 +74,27 @@ public class MyActivity extends Activity {
 					StrictMode
 							.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
 									.permitAll().build());
-							//Pasar string
-					Downloader localBackgroundDownload = new Downloader();
 					String show_to_search = input_text.getText().toString();
 					show_to_search = changeShow(show_to_search);
 					show_to_search = show_to_search.toLowerCase().replace(" ",
 							"-");
-					
+
 					String str2 = show_init + show_to_search;
-					
-					String season_number = String.valueOf(new JSONObject(
-							(makeJSON(localBackgroundDownload
-									.execute(str2).get(5L, TimeUnit.SECONDS)))).get("season"));
+					Downloader localBackgroundDownload = new Downloader(
+							show_to_search);
+					localBackgroundDownload.execute(str2);
+					wait();
+					/*String season_number = String.valueOf(new JSONObject(
+							(makeJSON(localBackgroundDownload.execute(str2)
+									.get(5L, TimeUnit.SECONDS)))).get("season"));
 					String str5 = episode_init + show_to_search + "/"
 							+ season_number;
 
 					// hacer un execute
-					localBackgroundDownload = new Downloader();
+					// localBackgroundDownload = new Downloader();
 					JSONArray localJSONArray = new JSONArray(
-							localBackgroundDownload.execute(str5).get(5L, TimeUnit.SECONDS ));
+							localBackgroundDownload.execute(str5).get(5L,
+									TimeUnit.SECONDS));
 
 					String episode_number = getRightEpisode(localJSONArray);
 					JSONObject localJSONObject = localJSONArray
@@ -105,7 +107,7 @@ public class MyActivity extends Activity {
 					final String final_date = getFinalDate(iso_date);
 					String str10 = summary_init + show_to_search + "/"
 							+ season_number + "/" + episode_number;
-					localBackgroundDownload = new Downloader();
+					// localBackgroundDownload = new Downloader();
 					JSONObject banner = new JSONObject(localBackgroundDownload
 							.execute(str10).get(5L, TimeUnit.SECONDS));
 					String banner_url = banner.getJSONObject("show")
@@ -184,21 +186,22 @@ public class MyActivity extends Activity {
 						result_show.setText(R.string.no_episodes);
 						banner_show.setVisibility(View.INVISIBLE);
 						text_result.setVisibility(View.INVISIBLE);
-					}
-				} catch (FileNotFoundException e) {
+					}*/
+				} /*catch (FileNotFoundException e) {
 					Toast.makeText(getApplicationContext(), R.string.no_exists,
 							Toast.LENGTH_LONG).show();
 				} catch (IOException ex) {
 					Toast.makeText(getApplicationContext(), ex.getMessage(),
 							Toast.LENGTH_LONG).show();
 				} catch (TimeoutException ei) {
-					
-				} catch (Exception exx) {
+
+				} */
+				catch (Exception exx) {
 					result_show.setText(R.string.no_exists);
 					banner_show.setVisibility(View.INVISIBLE);
 					text_result.setVisibility(View.INVISIBLE);
 				}
-
+				
 			}
 		});
 		this.about.setOnClickListener(new View.OnClickListener() {
@@ -341,25 +344,77 @@ public class MyActivity extends Activity {
 		}
 		return str;
 	}
-	private class Downloader extends AsyncTask<String, Integer, String> {
-		ProgressDialog pDialog;
-		@Override
-		protected void onPreExecute() {
-		    // Showing progress dialog before sending http request
-		    pDialog = new ProgressDialog(
-		            MyActivity.this);
-		    pDialog.setMessage("Please wait..");
-		    pDialog.setIndeterminate(true);
-		    pDialog.setCancelable(false);
-		    pDialog.show();
-		}
 
+	private class Downloader extends AsyncTask<String, Integer, String> {
+
+		private String show_to_search;
+		/*
+		 * http://stackoverflow.com/questions/8183111/accessing-views-from-other-thread-android
+		 * 
+		 */
+		public Downloader(String show_to_search) {
+			this.show_to_search = show_to_search;
+		}
+		
 		@Override
 		protected String doInBackground(String... arg0) {
+
+			try {
+				JSONObject season_number_json = new JSONObject(
+						makeJSON(download(arg0[0])));
+				String season_number = String.valueOf(season_number_json
+						.get("season"));
+				String str5 = episode_init + show_to_search + "/"
+						+ season_number;
+				JSONArray localJSONArray = new JSONArray(download(str5));
+				String episode_number = getRightEpisode(localJSONArray);
+				JSONObject localJSONObject = localJSONArray
+						.getJSONObject(Integer.parseInt(episode_number) - 1);
+
+				String episode_title = String.valueOf(localJSONObject
+						.getString("title"));
+				String iso_date = String.valueOf(localJSONObject
+						.get("first_aired_iso"));
+				final String final_date = getFinalDate(iso_date);
+				String str10 = summary_init + show_to_search + "/"
+						+ season_number + "/" + episode_number;
+
+				JSONObject banner = new JSONObject(download(str10));
+				String banner_url = banner.getJSONObject("show")
+						.getJSONObject("images").getString("banner");
+				if (checkDate(iso_date)) {
+					if (episode_title.equalsIgnoreCase("TBA")) {
+						episode_title = getApplicationContext().getString(
+								R.string.tba);
+					}
+					result_show.setText((getText(R.string.result_en)) + " "
+							+ episode_title);
+					text_result.setVisibility(View.VISIBLE);
+					text_result.setText((getText(R.string.date_next)) + " "
+							+ final_date);
+					InputStream localIS = getImage(banner_url);
+					Bitmap localBitmap = BitmapFactory
+							.decodeStream(localIS);
+					banner_show.setImageBitmap(localBitmap);
+					banner_show.setVisibility(View.VISIBLE);
+				}
+			} catch (ParseException e) {
+			} catch(IOException ex) {			
+			}
+			return "";
+
+		}
+		@Override
+		protected void onPostExecute(String result) {
+			notify();
+		}
+
+		private String download(String... arg0) {
 			String input = "";
 			try {
 				URL url = new URL(arg0[0]);
-				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+				HttpURLConnection conn = (HttpURLConnection) url
+						.openConnection();
 				conn.setRequestMethod("GET");
 
 				BufferedReader buff = new BufferedReader(new InputStreamReader(
@@ -378,10 +433,7 @@ public class MyActivity extends Activity {
 			}
 			return input;
 		}
-		@Override
-		protected void onPostExecute(String result) {
-			pDialog.dismiss();
-			
-		}
+
+
 	}
 }
