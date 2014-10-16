@@ -10,28 +10,18 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.AlertDialog;
-import android.app.PendingIntent;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.v4.util.TimeUtils;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
@@ -76,6 +66,7 @@ public class MyActivity extends Activity {
 							.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
 									.permitAll().build());
 					String show_to_search = input_text.getText().toString();
+					Toast.makeText(getApplicationContext(), getText(R.string.wait)+""+show_to_search, Toast.LENGTH_LONG).show();
 					show_to_search = changeShow(show_to_search);
 					show_to_search = show_to_search.toLowerCase().replace(" ",
 							"-");
@@ -84,6 +75,7 @@ public class MyActivity extends Activity {
 					Downloader localBackgroundDownload = new Downloader(
 							show_to_search);
 					localBackgroundDownload.execute(str2);
+					
 					/*
 					 * String season_number = String.valueOf(new JSONObject(
 					 * (makeJSON(localBackgroundDownload.execute(str2) .get(5L,

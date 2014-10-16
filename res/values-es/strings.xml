@@ -10,7 +10,7 @@
 	<string name="date_next">El proximo episodio se emite el </string>
 	<string name="no_episodes">No hay nuevos episodios</string>
 	<string name="about">Informacion</string>
-	 <string name="wait">Espere, la aplicación esta descargando la información de la serie.</string>
+	 <string name="wait">Espere, la aplicación esta descargando la información de la serie </string>
 	<string name="about_app">Esta aplicación ha sido desarrollada con el único propósito de facilitar la búsqueda de la fecha del proximo episodio de tus series favoritas. \n</string>
     <string name="about_help">Si tienes algún problema con la aplicación por favor envieme un correo a adrianmarinportillo@gmail.com </string>
 	<string name="no_exists">Esa serie no aparece en nuestra guía de televisión, intentelo de nuevo.</string>
