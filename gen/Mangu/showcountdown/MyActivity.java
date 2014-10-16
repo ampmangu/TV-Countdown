@@ -154,16 +154,7 @@ public class MyActivity extends Activity {
 					 * banner_show.setVisibility(View.INVISIBLE);
 					 * text_result.setVisibility(View.INVISIBLE); }
 					 */
-				} /*
-				 * catch (FileNotFoundException e) {
-				 * Toast.makeText(getApplicationContext(), R.string.no_exists,
-				 * Toast.LENGTH_LONG).show(); } catch (IOException ex) {
-				 * Toast.makeText(getApplicationContext(), ex.getMessage(),
-				 * Toast.LENGTH_LONG).show(); } catch (TimeoutException ei) {
-				 * 
-				 * }
-				 */
-				catch (Exception exx) {
+				} catch (Exception exx) {
 					result_show.setText(R.string.no_exists);
 					banner_show.setVisibility(View.INVISIBLE);
 					text_result.setVisibility(View.INVISIBLE);
@@ -375,12 +366,23 @@ public class MyActivity extends Activity {
 					Pair<String, Object> pair_bm = new Pair<String, Object>(
 							"banner", localBitmap);
 					publishProgress(pair_bm);
-					/*banner_show.setImageBitmap(localBitmap);
-					banner_show.setVisibility(View.VISIBLE);*/
+					/*
+					 * banner_show.setImageBitmap(localBitmap);
+					 * banner_show.setVisibility(View.VISIBLE);
+					 */
+				}else {
+					Pair<String,Object> pair_else = new Pair<String,Object>("else", "");
+					publishProgress(pair_else);
 				}
 			} catch (ParseException e) {
+			} catch (FileNotFoundException exx) {
 			} catch (IOException ex) {
+				/*
+				 * Pair<String, Object> pair_ex = new Pair<String,
+				 * Object>("IOException", ex); publishProgress(pair_ex);
+				 */
 			}
+
 			return "";
 
 		}
@@ -388,16 +390,16 @@ public class MyActivity extends Activity {
 		@Override
 		protected void onProgressUpdate(Pair<String, Object>... values) {
 			if (values[0].first.equalsIgnoreCase("result_show")) {
-				if(values[0].second instanceof String) {
-				result_show.setText((getText(R.string.result_en)) + " "
-						+ values[0].second);
+				if (values[0].second instanceof String) {
+					result_show.setText((getText(R.string.result_en)) + " "
+							+ values[0].second);
 				}
 			}
 			if (values[0].first.equalsIgnoreCase("text_result")) {
-				if(values[0].second instanceof String) {
-				text_result.setVisibility(View.VISIBLE);
-				text_result.setText((getText(R.string.date_next)) + " "
-						+ values[0].second);
+				if (values[0].second instanceof String) {
+					text_result.setVisibility(View.VISIBLE);
+					text_result.setText((getText(R.string.date_next)) + " "
+							+ values[0].second);
 				}
 			}
 			if (values[0].first.equalsIgnoreCase("banner")) {
@@ -405,10 +407,20 @@ public class MyActivity extends Activity {
 					banner_show.setImageBitmap((Bitmap) values[0].second);
 					banner_show.setVisibility(View.VISIBLE);
 				}
+			}if (values[0].first.equalsIgnoreCase("else")) {
+				banner_show.setVisibility(View.INVISIBLE);
+				text_result.setVisibility(View.INVISIBLE);
+				result_show.setText(R.string.no_episodes);
+				
 			}
+			/*
+			 * if (values[0].first.equalsIgnoreCase("IOException")) {
+			 * 
+			 * }
+			 */
 		}
 
-		private String download(String... arg0) {
+		private String download(String... arg0) throws IOException {
 			String input = "";
 			try {
 				URL url = new URL(arg0[0]);
@@ -427,8 +439,6 @@ public class MyActivity extends Activity {
 
 			} catch (MalformedURLException localMalformedURLException) {
 				localMalformedURLException.printStackTrace();
-			} catch (IOException localIOException) {
-				localIOException.printStackTrace();
 			}
 			return input;
 		}
